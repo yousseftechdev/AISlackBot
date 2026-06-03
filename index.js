@@ -52,6 +52,35 @@ ${response.data.punchline}`
     }
 });
 
+app.command("/asb-ask", async ({ command, ack, respond }) => {
+    await ack();
+    const userInput = command.text;
+
+    try {
+        const response = await axios.post(
+            "https://ai.hackclub.com/proxy/v1/chat/completions",
+            {
+                model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+                messages: [
+                    { role: "user", content: userInput }
+                ]
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${process.env.AI_API_KEY}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+        console.log(response.data);
+        await respond({
+            text: response.data.choices[0].message.content
+        });
+    } catch (err) {
+        await respond({ text: "Failed to fetch AI response." });
+    }
+});
+
 (async () => {
     await app.start();
     console.log("bot is running!");
