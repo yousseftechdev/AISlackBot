@@ -10,3 +10,6 @@ Available commands:
 /asb-quote - Random quote
 
 oh and asb stands for AI Slack Bot
+
+### AI USAGE DECLARATION:
+AI's help was used in the development of this project to help me parse the JSON response coming from the AI API as I'm not experienced in JSON parsing via JavaScript. 
