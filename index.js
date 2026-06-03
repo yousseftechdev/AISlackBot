@@ -62,7 +62,7 @@ app.command("/asb-ask", async ({ command, ack, respond }) => {
             {
                 model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
                 messages: [
-                    { role: "user", content: userInput }
+                    { role: "user", content: "You are a slack bot, so follow slack formatting rules and markdown convetions when responding \n\n\n\n\n\n" + userInput }
                 ]
             },
             {
