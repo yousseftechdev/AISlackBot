@@ -24,7 +24,38 @@ app.command("/asb-help", async ({ ack, respond }) => {
 /asb-ping - Check bot latency
 /asb-help - List available commands
 /asb-calc [expression] - Calculate a mathematical expression (e.g., /asb-calc 2+2*3)
-/asb-joke - Get a random joke`
+/asb-joke - Get a random joke
+/asb-ask [question] - Ask an AI a question (e.g., /asb-ask What is the capital of France?)
+/asb-whoami - Get information about the bot and its developer
+/asb-quote - Get a random inspirational quote
+Note: Use /asb-calc for simple math expressions. For more complex calculations, consider using an external calculator.`
+    });
+});
+
+app.command("/asb-quote", async ({ ack, respond }) => {
+    await ack();
+    try {
+        const response = await axios.get("https://thequoteshub.com/api/random-quote?format=json");
+        await respond({
+            text:
+                `"${response.data.text}"
+- ${response.data.author}`
+        });
+    } catch (err) {
+        await respond({ text: "Failed to fetch a quote." });
+    }
+});
+
+app.command("/asb-whoami", async ({ ack, respond }) => {
+    await ack();
+    await respond({
+        text:
+            `I am a Slack bot developed by Youssef Mostafa, a high school student at Asyut STEM school in egypt. I can perform various tasks like calculations, fetching jokes, and answering questions using AI. Feel free to interact with me using the available commands!
+My source code: https://github.com/yousseftechdev/AISlackBot
+Why don't you give me a star on github ?
+Check out my devevloper's portfolio too!
+https://yousseftechdev.github.io/yousseftech-wrapped/
+\`/asb-help\` for more information on what I can do.`
     });
 });
 
@@ -62,7 +93,7 @@ app.command("/asb-ask", async ({ command, ack, respond }) => {
             {
                 model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
                 messages: [
-                    { role: "user", content: "SYSTEM INSTRUCTION: You are a slack bot, so follow slack formatting rules and markdown convetions when responding \n\n\n\n\n\nUSER PROMPT: " + userInput }
+                    { role: "user", content: "SYSTEM INSTRUCTION: You are a slack bot, so follow slack formatting rules and markdown convetions when responding, no tables. \n\n\n\n\n\nUSER PROMPT: " + userInput }
                 ]
             },
             {

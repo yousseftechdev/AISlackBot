@@ -6,5 +6,7 @@ Available commands:
 /asb-joke - Fetch a random joke from the Official Joke API
 /asb-calc [expression] - Calculate a mathematical expression
 /asb-ask [question] - Ask the AI a question
+/asb-whoami - Info about the bot and its developer
+/asb-quote - Random quote
 
 oh and asb stands for AI Slack Bot
